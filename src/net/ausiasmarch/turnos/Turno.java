@@ -10,6 +10,7 @@
  */
 package net.ausiasmarch.turnos;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -76,7 +77,7 @@ public class Turno extends javax.swing.JPanel {
     }
 
     public void start() {
-        
+
         estados.put(this.getName(), estado);
         setCurrentValue(estado.minValue);
         estado.visible = isVisible();
@@ -250,7 +251,8 @@ public class Turno extends javax.swing.JPanel {
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
-                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(fileName));
+                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(this.getClass().getResourceAsStream(fileName)));
+
                     clip.open(inputStream);
                     clip.start();
                 } catch (Exception e) {
